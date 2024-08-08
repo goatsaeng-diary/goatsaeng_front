@@ -26,7 +26,7 @@ export function logOut() {
 
 export function withdraw() {
   return request({
-    url: API_BASE_URL + "/api/auth/withdraw/",
+    url: API_BASE_URL + "/api/auth/withdraw",
     method: "DELETE",
   });
 } //회원 탈퇴 요청
@@ -44,6 +44,20 @@ export function checkEmail(email) {
     method: "GET",
   });
 } //email 중복 확인
+
+export function requestEmailCode(email) {
+  return request({
+    url: API_BASE_URL + "/api/auth/email-code/" + email,
+    method: "GET",
+  });
+} //이메일 인증 요청
+
+export function requestEmailVerify(code) {
+  return request({
+    url: API_BASE_URL + "/api/auth/email-verify/" + code,
+    method: "GET",
+  });
+} //이메일 인증 확인 요청
 
 export function checkIfLoggedIn() {
   if (!localStorage.getItem(ACCESS_TOKEN)) {

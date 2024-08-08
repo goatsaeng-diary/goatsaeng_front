@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN } from "../../constant/backendAPI";
-import { logIn } from "../../service/AuthService";
+import { logIn, withdraw } from "../../service/AuthService";
 
 import styles from "./Auth.module.css";
 import logo from "../../../image/logo.png";
