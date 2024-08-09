@@ -47,21 +47,21 @@ export function checkEmail(email) {
 
 export function requestEmailCode(email) {
   return request({
-    url: API_BASE_URL + "/api/auth/email-code/" + email,
+    url: API_BASE_URL + "/api/auth/email-send/" + email,
     method: "GET",
   });
 } //이메일 인증 요청
 
-export function requestEmailVerify(code) {
+export function requestEmailVerify(email, code) {
   return request({
-    url: API_BASE_URL + "/api/auth/email-verify/" + code,
+    url: API_BASE_URL + "/api/auth/email-verify/" + email + "/" + code,
     method: "GET",
   });
 } //이메일 인증 확인 요청
 
 export function checkIfLoggedIn() {
   if (!localStorage.getItem(ACCESS_TOKEN)) {
-    window.alert("로그인이 필요한 서비스입니다.");
+    // window.alert("로그인이 필요한 서비스입니다.");
     return false;
   }
   return true;
