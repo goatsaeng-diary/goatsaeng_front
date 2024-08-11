@@ -1,53 +1,54 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./goatsaeng/context/AuthContext";
 import styles from "./App.module.css";
-
-import Login from "./goatsaeng/component/auth/Login";
-import SignUp from "./goatsaeng/component/auth/SignUp";
-
-import Header from "./goatsaeng/component/side/Header";
-
-import PostList from "./goatsaeng/component/post/PostList";
+//Protected Route
+import ProtectedRoute from "./goatsaeng/component/ProtectedRoute";
+//Layouts
+import MainLayout from "./goatsaeng/component/Layout/MainLayout";
+import AuthLayout from "./goatsaeng/component/Layout/AuthLayout";
+//Auth
+import Login from "./goatsaeng/component/Auth/Login";
+import SignUp from "./goatsaeng/component/Auth/SignUp";
+//Post
+import PostList from "./goatsaeng/component/Post/PostList";
 
 function App() {
-  const location = useLocation();
-
-  // 로그인과 회원가입 페이지에서는 헤더를 렌더링하지 않음
-  const hideHeaderPaths = ["/login", "/signup"];
-  const shouldHideHeader = hideHeaderPaths.includes(location.pathname);
-
   return (
-    <>
-      {!shouldHideHeader ? (
+    <AuthProvider>
+      <Router>
         <div className={styles.page}>
-          <Header />
-          <div className={styles.content}>
-            <Routes>
-              <Route path='/' element={<PostList />} />
-            </Routes>
-          </div>
-        </div>
-      ) : (
-        <div className={styles.authPage}>
           <Routes>
-            <Route path='/login' element={<Login />} />
-            <Route path='/signup' element={<SignUp />} />
+            {/* 로그인 여부 판별 X - 레이아웃 (로그인, 회원가입 페이지) */}
+            <Route
+              path='/login'
+              element={
+                <AuthLayout>
+                  <Login />
+                </AuthLayout>
+              }
+            />
+            <Route
+              path='/signup'
+              element={
+                <AuthLayout>
+                  <SignUp />
+                </AuthLayout>
+              }
+            />
+            {/* 로그인 여부 판별 O - 보호된 라우트 */}
+            <Route
+              path='/'
+              element={
+                <MainLayout>
+                  <ProtectedRoute element={<PostList />} />
+                </MainLayout>
+              }
+            />
           </Routes>
         </div>
-      )}
-    </>
+      </Router>
+    </AuthProvider>
   );
 }
-function AppWrapper() {
-  return (
-    <Router>
-      <App />
-    </Router>
-  );
-}
-export default AppWrapper;
+
+export default App;

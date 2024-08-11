@@ -59,6 +59,13 @@ export function requestEmailVerify(email, code) {
   });
 } //이메일 인증 확인 요청
 
+export function getUserProfile() {
+  return request({
+    url: API_BASE_URL + "/api/auth/info",
+    method: "GET",
+  });
+} //이메일 인증 확인 요청
+
 export function checkIfLoggedIn() {
   if (!localStorage.getItem(ACCESS_TOKEN)) {
     // window.alert("로그인이 필요한 서비스입니다.");

@@ -5,6 +5,9 @@ body {
   width: 100%;
   height: 100%;
 }
+footer {
+  margin-top: auto; /* 푸터를 항상 하단에 배치 */
+}
 .page {
   display: flex;
   flex-direction: column;
@@ -13,7 +16,4 @@ body {
   padding: 15px 0;
   margin: 0 auto;
   box-sizing: border-box;
-}
-.content {
-  padding: 10px 20px;
 }

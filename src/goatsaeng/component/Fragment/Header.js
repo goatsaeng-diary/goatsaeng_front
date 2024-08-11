@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN } from "../../constant/backendAPI";
 import { checkIfLoggedIn } from "../../service/AuthService";
 
-import styles from "./Side.module.css";
+import styles from "./Fragment.module.css";
 import logo from "../../../image/logo.png";
 
 const Header = () => {
@@ -27,15 +27,15 @@ const Header = () => {
   };
 
   return (
-    <div className={styles.header}>
+    <header className={styles.header}>
       <img className={styles.logo} src={logo} alt='갓생일기' />
       <div className={styles.container}>
-        <div className={styles.box1}>
+        <div className={styles.box}>
           <button onClick={() => navigate("/challenge")}>챌린지</button>
-          <button onClick={() => navigate("/record")}>기록하기</button>
-          <button onClick={() => navigate("/learn")}>학습하기</button>
+          <button onClick={() => navigate("/trace")}>기록하기</button>
+          <button onClick={() => navigate("/study")}>학습하기</button>
         </div>
-        <div className={styles.box1}>
+        <div className={styles.box}>
           <button onClick={() => navigate("/mypage")}>마이페이지</button>
           {isLoggedIn ? (
             <button onClick={handleLogOut}>로그아웃</button>
@@ -44,7 +44,7 @@ const Header = () => {
           )}
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 
