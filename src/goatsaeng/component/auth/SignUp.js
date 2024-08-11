@@ -119,7 +119,7 @@ const SignUp = () => {
   };
 
   //회원가입 요청 보내기 -> 비밀번호 일치, 닉네임 중복 X, 이메일 중복 X, 이메일 인증 완료
-  const handleSignUpFormSubmit = (e) => {
+  const onClickSignUpFormSubmit = (e) => {
     e.preventDefault();
     if (
       isPasswordConfirm &&
@@ -146,7 +146,7 @@ const SignUp = () => {
       <div className={styles.container}>
         <img className={styles.logo} src={logo} alt='갓생일기'></img>
         <h2>회원가입</h2>
-        <form className={styles.signUpForm} onSubmit={handleSignUpFormSubmit}>
+        <form className={styles.signUpForm} onSubmit={onClickSignUpFormSubmit}>
           <label htmlFor='email'>이메일 인증</label>
           <div className={styles.duplicate}>
             <input

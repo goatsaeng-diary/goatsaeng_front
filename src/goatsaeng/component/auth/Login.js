@@ -21,7 +21,7 @@ const Login = () => {
     });
   };
 
-  const handleLoginFormSubmit = (e) => {
+  const onClickLoginFormSubmit = (e) => {
     e.preventDefault();
     logIn(loginForm)
       .then((response) => {
@@ -35,7 +35,7 @@ const Login = () => {
       });
   };
 
-  const handleGoSignUp = () => {
+  const onClickGoSignUp = () => {
     navigate("/signup");
   };
 
@@ -44,7 +44,7 @@ const Login = () => {
       <div className={styles.container}>
         <img className={styles.logo} src={logo} alt='갓생일기'></img>
         <h2>로그인</h2>
-        <form className={styles.form} onSubmit={handleLoginFormSubmit}>
+        <form className={styles.form} onSubmit={onClickLoginFormSubmit}>
           <input
             placeholder='아이디'
             type='text'
@@ -71,7 +71,7 @@ const Login = () => {
           <img alt='naver'></img>
         </div>
         <p className={styles.goSignUp}>
-          계정이 없으신가요? <strong onClick={handleGoSignUp}>회원가입</strong>
+          계정이 없으신가요? <strong onClick={onClickGoSignUp}>회원가입</strong>
         </p>
       </div>
     </div>

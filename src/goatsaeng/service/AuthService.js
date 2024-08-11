@@ -64,7 +64,7 @@ export function getUserProfile() {
     url: API_BASE_URL + "/api/auth/info",
     method: "GET",
   });
-} //이메일 인증 확인 요청
+} //본인 정보 요청
 
 export function checkIfLoggedIn() {
   if (!localStorage.getItem(ACCESS_TOKEN)) {

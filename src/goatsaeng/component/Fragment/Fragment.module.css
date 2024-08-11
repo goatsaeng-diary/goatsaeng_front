@@ -22,7 +22,7 @@
 }
 .box > button {
   font-size: 15px;
-  background-color: white;
+  background-color: transparent;
   border: none;
   cursor: pointer;
 }
@@ -123,10 +123,54 @@
 }
 .lanking > button {
   font-size: 16px;
-  background-color: white;
+  background-color: transparent;
   border: none;
   margin: 15px 0 0;
   cursor: pointer;
+}
+/* Option */
+.optionContainer {
+  position: relative;
+}
+
+.option {
+  display: flex;
+  position: fixed;
+  bottom: 52px;
+  right: 45px;
+  z-index: 1000;
+  font-size: 56px;
+  color: #17c3b2;
+  background-color: white;
+  border: none;
+  border-radius: 50px;
+  box-shadow: rgba(0, 0, 0, 0.3) 4px 4px 38px 0px;
+  cursor: pointer;
+}
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  background-color: transparent;
+  margin: 0 0 15px;
+}
+
+.menuItem {
+  font-size: 18px;
+  color: #17c3b2;
+  background: none;
+  border: none;
+  padding: 10px;
+  margin: 5px 0;
+  cursor: pointer;
+}
+
+.menuItem:hover {
+  font-weight: bold;
+  color: #0a7f6d;
 }
 /* Footer */
 .footer {

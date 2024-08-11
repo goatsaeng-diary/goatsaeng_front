@@ -5,12 +5,14 @@ import styles from "./App.module.css";
 import ProtectedRoute from "./goatsaeng/component/ProtectedRoute";
 //Layouts
 import MainLayout from "./goatsaeng/component/Layout/MainLayout";
+import SubLayout from "./goatsaeng/component/Layout/SubLayout";
 import AuthLayout from "./goatsaeng/component/Layout/AuthLayout";
 //Auth
 import Login from "./goatsaeng/component/Auth/Login";
 import SignUp from "./goatsaeng/component/Auth/SignUp";
 //Post
 import PostList from "./goatsaeng/component/Post/PostList";
+import PostCreate from "./goatsaeng/component/Post/PostCreate";
 
 function App() {
   return (
@@ -42,6 +44,14 @@ function App() {
                 <MainLayout>
                   <ProtectedRoute element={<PostList />} />
                 </MainLayout>
+              }
+            />
+            <Route
+              path='/postwrite'
+              element={
+                <SubLayout>
+                  <ProtectedRoute element={<PostCreate />} />
+                </SubLayout>
               }
             />
           </Routes>
