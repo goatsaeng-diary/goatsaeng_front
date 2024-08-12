@@ -39,7 +39,7 @@ const Lanking = () => {
         <PiCrownSimpleFill className={styles.secondCrown} />
         <p>2등</p>
         <img src='https://via.placeholder.com/36' alt='프로필 이미지' />
-        <p>...으로처리함</p>
+        <p>으로처리함</p>
       </div>
       <div className={styles.lankingContainer}>
         <PiCrownSimpleFill className={styles.thirdCrown} />

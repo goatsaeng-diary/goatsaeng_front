@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+}
+.commentList {
+  margin: 0 0 10px;
+}
+.commentItem {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #d5d5d5;
+}
+
+.itemBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 12px;
+}
+.itemBox > img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50px;
+  cursor: pointer;
+  margin-right: 15px;
+}
+.itemNickname {
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0;
+  cursor: pointer;
+}
+.itemButton {
+  font-size: 15px;
+  background-color: transparent;
+  border: none;
+  margin-left: auto;
+  cursor: pointer;
+}
+.itemBox2 {
+  margin-left: 64px;
+}
+.itemContent {
+  margin: 0;
+}
+.itemCreatedDate {
+  font-size: 14px;
+  color: #bcbcbc;
+  margin: 5px 0 10px;
+}

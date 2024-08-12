@@ -13,6 +13,7 @@ import SignUp from "./goatsaeng/component/Auth/SignUp";
 //Post
 import PostList from "./goatsaeng/component/Post/PostList";
 import PostCreate from "./goatsaeng/component/Post/PostCreate";
+import PostPage from "./goatsaeng/component/Post/PostPage";
 
 function App() {
   return (
@@ -44,6 +45,14 @@ function App() {
                 <MainLayout>
                   <ProtectedRoute element={<PostList />} />
                 </MainLayout>
+              }
+            />
+            <Route
+              path='/post/:id'
+              element={
+                <SubLayout>
+                  <ProtectedRoute element={<PostPage />} />
+                </SubLayout>
               }
             />
             <Route
