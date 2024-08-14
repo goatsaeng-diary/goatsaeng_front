@@ -25,8 +25,9 @@ const Login = () => {
     e.preventDefault();
     logIn(loginForm)
       .then((response) => {
-        localStorage.setItem(ACCESS_TOKEN, response.accessToken);
+        localStorage.setItem(ACCESS_TOKEN, response.data.accessToken);
         window.alert(response.message);
+        console.log(response);
         navigate("/");
       })
       .catch((e) => {

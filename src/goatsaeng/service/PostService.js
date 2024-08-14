@@ -40,7 +40,7 @@ export function updatePost(postUpdateRequest) {
 
 export function deletePost(postId) {
   return request({
-    url: API_BASE_URL + "/api/post/delete" + postId,
+    url: API_BASE_URL + "/api/post/delete/" + postId,
     method: "DELETE",
   });
 } //글 수정하기

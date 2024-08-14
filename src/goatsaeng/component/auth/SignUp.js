@@ -63,7 +63,7 @@ const SignUp = () => {
   //이메일 인증번호 요청하기
   const handleRequestEmailCode = (e) => {
     e.preventDefault();
-    requestEmailCode()
+    requestEmailCode(signUpForm.email)
       .then((response) => {
         window.alert(response.message);
         setIsEmailCodeSend(true);
@@ -78,7 +78,7 @@ const SignUp = () => {
   //이메일 인증번호 확인 요청하기
   const handleRequestCodeVertify = (e) => {
     e.preventDefault();
-    requestEmailVerify()
+    requestEmailVerify(signUpForm.email, "zbIFcL9b")
       .then((response) => {
         window.alert(response.message);
         setIsEmailCodeConfirm(true);
@@ -124,7 +124,7 @@ const SignUp = () => {
     if (
       isPasswordConfirm &&
       isUsernameConfirm &&
-      isEmailConfirm &&
+      // isEmailConfirm &&
       isEmailCodeConfirm
     ) {
       signUp(signUpForm)

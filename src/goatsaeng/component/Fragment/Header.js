@@ -28,7 +28,12 @@ const Header = () => {
 
   return (
     <header className={styles.header}>
-      <img className={styles.logo} src={logo} alt='갓생일기' />
+      <img
+        className={styles.logo}
+        src={logo}
+        alt='갓생일기'
+        onClick={() => navigate("/")}
+      />
       <div className={styles.container}>
         <div className={styles.box}>
           <button onClick={() => navigate("/challenge")}>챌린지</button>

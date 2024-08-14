@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { showPost } from "../../service/PostService";
+import { deletePost, showPost } from "../../service/PostService";
 
 import styles from "./Post.module.css";
 import { FaArrowLeft } from "react-icons/fa";
 import { GoHeartFill } from "react-icons/go";
-import { SlOptionsVertical } from "react-icons/sl";
 
-import { getTestPostData } from "../Test/TestPage"; // TestPage에서 함수 가져오기
 import CommentList from "./Comment/CommentList";
 
 const PostPage = () => {
@@ -17,22 +15,20 @@ const PostPage = () => {
   const [liked, setLiked] = useState(false);
 
   useEffect(() => {
-    const postData = getTestPostData().find((post) => post.id === parseInt(id));
-    setPost(postData);
-    // fetchPost();
+    fetchPost();
   }, [id]);
 
-  //   const fetchPost = () => {
-  //     showPost(id)
-  //       .then((response) => {
-  //         window.alert(response.message);
-  //         navigate("/");
-  //       })
-  //       .catch((e) => {
-  //         console.log(e);
-  //         window.alert(e.exception.errorMessage);
-  //       });
-  //   };
+  const fetchPost = () => {
+    showPost(id)
+      .then((response) => {
+        console.log(response);
+        setPost(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+        window.alert(e.exception.errorMessage);
+      });
+  };
 
   const onClickGoBack = () => {
     navigate(-1);
@@ -48,6 +44,18 @@ const PostPage = () => {
 
   const onClickUpdate = () => {
     navigate(`/post/${id}/update`);
+  };
+
+  const onClickDelete = () => {
+    deletePost(id)
+      .then((response) => {
+        window.alert(response.message);
+        navigate("/");
+      })
+      .catch((e) => {
+        console.log(e);
+        window.alert(e.exception.errorMessage);
+      });
   };
 
   return (
@@ -85,10 +93,12 @@ const PostPage = () => {
           <button className={styles.optionButton} onClick={onClickUpdate}>
             수정
           </button>
-          <button className={styles.optionButton}>삭제</button>
+          <button className={styles.optionButton} onClick={onClickDelete}>
+            삭제
+          </button>
         </div>
         <hr />
-        <CommentList />
+        <CommentList planId={id} />
       </div>
     </div>
   );

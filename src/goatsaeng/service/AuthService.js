@@ -48,7 +48,7 @@ export function checkEmail(email) {
 export function requestEmailCode(email) {
   return request({
     url: API_BASE_URL + "/api/auth/email-send/" + email,
-    method: "GET",
+    method: "POST",
   });
 } //이메일 인증 요청
 

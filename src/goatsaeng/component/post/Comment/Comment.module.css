@@ -7,12 +7,14 @@
   margin: 0 0 10px;
 }
 .commentItem {
+  position: relative;
   display: flex;
   flex-direction: column;
   border-bottom: 1px solid #d5d5d5;
+  margin: 10px 0;
 }
-
 .itemBox {
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -31,12 +33,33 @@
   margin: 0;
   cursor: pointer;
 }
-.itemButton {
-  font-size: 15px;
-  background-color: transparent;
-  border: none;
+.headerOption {
+  color: #6b6b6b;
   margin-left: auto;
   cursor: pointer;
+}
+.optionMenu {
+  width: 45px;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  z-index: 1000;
+}
+.optionItem {
+  padding: 10px;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.optionItem:hover {
+  background-color: #f0f0f0;
 }
 .itemBox2 {
   margin-left: 64px;
@@ -48,4 +71,74 @@
   font-size: 14px;
   color: #bcbcbc;
   margin: 5px 0 10px;
+}
+.commentCreate {
+  display: flex;
+  flex-direction: column;
+  height: 120px;
+  border: 1px solid #d5d5d5;
+  margin: 10px;
+}
+.commmentEdit {
+  position: relative;
+  width: 100%;
+  flex: 1;
+}
+.commmentEdit > input {
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+  padding-right: 60px;
+  border: none;
+  box-sizing: border-box;
+}
+
+.commmentEdit > button:nth-child(2) {
+  position: absolute;
+  right: 65px;
+  bottom: 10px;
+  font-size: 14px;
+  color: #227c9d;
+  background-color: transparent;
+  padding: 4px 10px;
+  border: 1px solid #227c9d;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.commmentEdit > button:nth-child(3) {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  font-size: 14px;
+  color: white;
+  background-color: #227c9d;
+  padding: 4px 10px;
+  border: 1px solid #227c9d;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.inputWrapper {
+  position: relative;
+  width: 100%;
+  flex: 1;
+}
+.inputWrapper > input {
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+  padding-right: 60px;
+  border: none;
+  box-sizing: border-box;
+}
+.inputWrapper > button {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  font-size: 14px;
+  color: white;
+  background-color: #227c9d;
+  padding: 4px 10px;
+  border: 1px solid #227c9d;
+  border-radius: 4px;
+  cursor: pointer;
 }
