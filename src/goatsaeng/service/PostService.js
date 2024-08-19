@@ -3,14 +3,14 @@ import { request } from "./APIService";
 
 export function showListFollow() {
   return request({
-    url: API_BASE_URL + "/api/post/list/follow",
+    url: API_BASE_URL + "/api/post/list",
     method: "GET",
   });
 } //전체 글 목록 가져오기 - follow
 
 export function showListRecommend() {
   return request({
-    url: API_BASE_URL + "/api/post/list/recommend",
+    url: API_BASE_URL + "/api/post/list",
     method: "GET",
   });
 } //전체 글 목록 가져오기 - recommend
@@ -21,6 +21,16 @@ export function showPost(postId) {
     method: "GET",
   });
 } //단일 페이지 보기
+
+export function showImage(fileName) {
+  return request({
+    url:
+      API_BASE_URL +
+      "/Users/jeong-yujin/Desktop/Yujin/project/갓생일기/upload/" +
+      fileName,
+    method: "GET",
+  });
+} //전체 글 목록 가져오기 - recommend
 
 export function createPost(postCreateRequest) {
   return request({

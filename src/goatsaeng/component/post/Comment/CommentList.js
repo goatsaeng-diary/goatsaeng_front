@@ -7,7 +7,8 @@ import {
   updateComment,
 } from "../../../service/CommentService";
 import Moment from "moment";
-import ReplyComment from "./ReplyComment";
+import ReplyList from "./ReplyList";
+import ReplyCreate from "./ReplyCreate";
 
 import styles from "./Comment.module.css";
 import { SlOptionsVertical } from "react-icons/sl";
@@ -67,7 +68,7 @@ const CommentList = ({ planId }) => {
   };
 
   // 댓글 수정하기
-  const onClickComment = (commentId) => {
+  const onClickCommentUpdate = (commentId) => {
     if (editContent.trim() === "") {
       window.alert("댓글 내용을 입력하세요.");
       return;
@@ -171,7 +172,9 @@ const CommentList = ({ planId }) => {
                         onChange={(e) => setEditContent(e.target.value)}
                       />
                       <button onClick={onClickCancel}>취소</button>
-                      <button onClick={() => onClickComment(comment.commentId)}>
+                      <button
+                        onClick={() => onClickCommentUpdate(comment.commentId)}
+                      >
                         등록
                       </button>
                     </div>
@@ -187,10 +190,18 @@ const CommentList = ({ planId }) => {
                   </>
                 )}
               </div>
+              {/* 댓글에 대한 답글 렌더링 */}
+              <div className={styles.replyList}>
+                <ReplyList parentCommentId={comment.commentId} />
+              </div>
+              {/* 대댓글 작성하기 */}
+              {commentId === comment.commentId && (
+                <ReplyCreate parentCommentId={comment.commentId} />
+              )}
             </div>
           ))
         ) : (
-          <p>{errorMessage}</p>
+          <p className={styles.noComment}>{errorMessage}</p>
         )}
         <div className={styles.commentCreate}>
           <div className={styles.inputWrapper}>

@@ -14,6 +14,9 @@ import SignUp from "./goatsaeng/component/Auth/SignUp";
 import PostList from "./goatsaeng/component/Post/PostList";
 import PostCreate from "./goatsaeng/component/Post/PostCreate";
 import PostPage from "./goatsaeng/component/Post/PostPage";
+import RecordList from "./goatsaeng/component/Record/RecordList";
+import RecordPage from "./goatsaeng/component/Record/RecordPage";
+import RecordCreate from "./goatsaeng/component/Record/RecordCreate";
 
 function App() {
   return (
@@ -39,6 +42,7 @@ function App() {
               }
             />
             {/* 로그인 여부 판별 O - 보호된 라우트 */}
+            {/* Post */}
             <Route
               path='/'
               element={
@@ -60,6 +64,31 @@ function App() {
               element={
                 <SubLayout>
                   <ProtectedRoute element={<PostCreate />} />
+                </SubLayout>
+              }
+            />
+            {/* Record */}
+            <Route
+              path='/record'
+              element={
+                <MainLayout>
+                  <ProtectedRoute element={<RecordList />} />
+                </MainLayout>
+              }
+            />
+            <Route
+              path='/record/:id'
+              element={
+                <SubLayout>
+                  <ProtectedRoute element={<RecordPage />} />
+                </SubLayout>
+              }
+            />
+            <Route
+              path='/record/new'
+              element={
+                <SubLayout>
+                  <ProtectedRoute element={<RecordCreate />} />
                 </SubLayout>
               }
             />

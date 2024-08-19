@@ -8,7 +8,7 @@ import {
 } from "../../../service/ReplyService";
 import styles from "./Comment.module.css";
 
-const ReplyComment = ({ parentCommentId }) => {
+const ReplyList = ({ parentCommentId }) => {
   const navigate = useNavigate();
   const [replyCommentList, setReplyCommentList] = useState([]);
   const [replyCommentContent, setReplyCommentContent] = useState(""); // 상태 변수로 댓글 내용 저장
@@ -104,4 +104,4 @@ const ReplyComment = ({ parentCommentId }) => {
   );
 };
 
-export default ReplyComment;
+export default ReplyList;

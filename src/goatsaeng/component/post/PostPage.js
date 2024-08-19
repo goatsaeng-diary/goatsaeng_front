@@ -97,7 +97,6 @@ const PostPage = () => {
             삭제
           </button>
         </div>
-        <hr />
         <CommentList planId={id} />
       </div>
     </div>

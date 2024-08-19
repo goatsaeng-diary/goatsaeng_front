@@ -26,9 +26,9 @@ const ReplyCreate = ({ parentCommentId }) => {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.commentList}>
-        <div className={styles.commentCreate}>
+    <div className={styles.replyCreateContainer}>
+      <div className={styles.replyCreate}>
+        <div className={styles.inputWrapper}>
           <input
             placeholder='댓글을 입력하세요.'
             value={replyCommentContent}
