@@ -26,7 +26,7 @@ export function logOut() {
 
 export function withdraw() {
   return request({
-    url: API_BASE_URL + "/api/auth/withdraw/",
+    url: API_BASE_URL + "/api/auth/withdraw",
     method: "DELETE",
   });
 } //회원 탈퇴 요청
@@ -45,9 +45,30 @@ export function checkEmail(email) {
   });
 } //email 중복 확인
 
+export function requestEmailCode(email) {
+  return request({
+    url: API_BASE_URL + "/api/auth/email-send/" + email,
+    method: "POST",
+  });
+} //이메일 인증 요청
+
+export function requestEmailVerify(email, code) {
+  return request({
+    url: API_BASE_URL + "/api/auth/email-verify/" + email + "/" + code,
+    method: "GET",
+  });
+} //이메일 인증 확인 요청
+
+export function getUserProfile() {
+  return request({
+    url: API_BASE_URL + "/api/auth/info",
+    method: "GET",
+  });
+} //본인 정보 요청
+
 export function checkIfLoggedIn() {
   if (!localStorage.getItem(ACCESS_TOKEN)) {
-    window.alert("로그인이 필요한 서비스입니다.");
+    // window.alert("로그인이 필요한 서비스입니다.");
     return false;
   }
   return true;

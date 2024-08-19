@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN } from "../../constant/backendAPI";
-import { logIn } from "../../service/AuthService";
+import { logIn, withdraw } from "../../service/AuthService";
 
 import styles from "./Auth.module.css";
 import logo from "../../../image/logo.png";
@@ -21,12 +21,13 @@ const Login = () => {
     });
   };
 
-  const handleLoginFormSubmit = (e) => {
+  const onClickLoginFormSubmit = (e) => {
     e.preventDefault();
     logIn(loginForm)
       .then((response) => {
-        localStorage.setItem(ACCESS_TOKEN, response.accessToken);
+        localStorage.setItem(ACCESS_TOKEN, response.data.accessToken);
         window.alert(response.message);
+        console.log(response);
         navigate("/");
       })
       .catch((e) => {
@@ -35,7 +36,7 @@ const Login = () => {
       });
   };
 
-  const handleGoSignUp = () => {
+  const onClickGoSignUp = () => {
     navigate("/signup");
   };
 
@@ -44,7 +45,7 @@ const Login = () => {
       <div className={styles.container}>
         <img className={styles.logo} src={logo} alt='갓생일기'></img>
         <h2>로그인</h2>
-        <form className={styles.form} onSubmit={handleLoginFormSubmit}>
+        <form className={styles.form} onSubmit={onClickLoginFormSubmit}>
           <input
             placeholder='아이디'
             type='text'
@@ -71,7 +72,7 @@ const Login = () => {
           <img alt='naver'></img>
         </div>
         <p className={styles.goSignUp}>
-          계정이 없으신가요? <strong onClick={handleGoSignUp}>회원가입</strong>
+          계정이 없으신가요? <strong onClick={onClickGoSignUp}>회원가입</strong>
         </p>
       </div>
     </div>

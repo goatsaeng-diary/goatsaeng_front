@@ -1,0 +1,185 @@
+/* header */
+.header {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-bottom: 1px solid #e7e7e7;
+}
+.logo {
+  width: 120px;
+  margin: auto;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.box {
+  display: flex;
+  gap: 24px;
+}
+.box > button {
+  font-size: 15px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+/* SideBar - 프로필 */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border: 1px solid #d5d5d5;
+  border-radius: 8px;
+}
+.sidebar > img {
+  width: 216px;
+  height: 216px;
+  margin: auto;
+}
+.sidebar > h4 {
+  margin: 10px 5px 5px;
+}
+.profileUsername {
+  color: #949494;
+  margin: 0 5px;
+}
+.profilePoint {
+  color: #949494;
+  margin: 20px 5px 0;
+}
+.profileBadget {
+  color: #949494;
+  margin: 5px;
+}
+.sidebar > button {
+  background-color: #fef9ef;
+  padding: 5px;
+  border: 1px solid #d5d5d5;
+  border-radius: 8px;
+  margin: 10px 0 0;
+  box-sizing: border-box;
+}
+/* Lanking */
+.lanking {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 10px;
+  border: 1px solid #d5d5d5;
+  border-radius: 8px;
+}
+.lankingLabe1 {
+  margin: 0;
+}
+.lankingLabel2 {
+  margin: 10px 0 0;
+}
+.lankingContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: left;
+  width: 100%;
+  padding: 5px;
+  margin: 5px auto;
+  box-sizing: border-box;
+}
+.firstCrown {
+  font-size: 30px;
+  color: #ffd233;
+  margin-right: 10px;
+}
+.secondCrown {
+  font-size: 30px;
+  color: #d2cebe;
+  margin-right: 10px;
+}
+.thirdCrown {
+  font-size: 30px;
+  color: #c79160;
+  margin-right: 10px;
+}
+.lankingContainer > p:nth-child(2) {
+  width: 24px;
+  font-weight: 500;
+  margin: 0 20px 0 0;
+}
+.lankingContainer > img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50px;
+  margin-right: 10px;
+}
+.lankingContainer > p:nth-child(4) {
+  flex: 1;
+  max-width: 6 0px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 78px;
+  margin: 0;
+}
+.lanking > button {
+  font-size: 16px;
+  background-color: transparent;
+  border: none;
+  margin: 15px 0 0;
+  cursor: pointer;
+}
+/* Option */
+.optionContainer {
+  position: relative;
+}
+
+.option {
+  display: flex;
+  position: fixed;
+  bottom: 52px;
+  right: 45px;
+  z-index: 1000;
+  font-size: 56px;
+  color: #17c3b2;
+  background-color: white;
+  border: none;
+  border-radius: 50px;
+  box-shadow: rgba(0, 0, 0, 0.3) 4px 4px 38px 0px;
+  cursor: pointer;
+}
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  background-color: transparent;
+  margin: 0 0 15px;
+}
+
+.menuItem {
+  font-size: 18px;
+  color: #17c3b2;
+  background: none;
+  border: none;
+  padding: 10px;
+  margin: 5px 0;
+  cursor: pointer;
+}
+
+.menuItem:hover {
+  font-weight: bold;
+  color: #0a7f6d;
+}
+/* Footer */
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+}
+.footer > p {
+  font-size: 14px;
+  margin: 5px 0;
+}

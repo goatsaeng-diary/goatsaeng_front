@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ACCESS_TOKEN } from "../../constant/backendAPI";
-import { checkUsername, signUp } from "../../service/AuthService";
+import {
+  checkEmail,
+  checkUsername,
+  requestEmailCode,
+  requestEmailVerify,
+  signUp,
+} from "../../service/AuthService";
 
 import styles from "./Auth.module.css";
 import logo from "../../../image/logo.png";
@@ -12,7 +17,7 @@ const SignUp = () => {
     name: "",
     username: "",
     password: "",
-    email: "", //인증을 이메일로 할 지 핸드폰으로 할 지 모름
+    email: "",
     birthDate: "",
     nickname: "",
   });
@@ -21,10 +26,16 @@ const SignUp = () => {
   //오류 메시지
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
   const [usernameConfirmMessage, setUsernameConfirmMessage] = useState("");
+  const [emailConfirmMessage, setEmailConfirmMessage] = useState("");
 
   //유효성 검사
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
   const [isUsernameConfirm, setIsUsernameConfirm] = useState(false);
+  const [isEmailConfirm, setIsEmailConfirm] = useState(false);
+
+  //이메일 인증
+  const [isEmailCodeSend, setIsEmailCodeSend] = useState(false);
+  const [isEmailCodeConfirm, setIsEmailCodeConfirm] = useState(false);
 
   const handleSignUpFormChange = (e) => {
     const changedField = e.target.name;
@@ -34,18 +45,52 @@ const SignUp = () => {
     });
   };
 
-  const handlePasswordConfirmChange = (e) => {
-    const passwordInput = e.target.value;
-    setPasswordConfirm(e.target.value);
-    if (signUpForm.password === passwordInput) {
-      setPasswordConfirmMessage("");
-      setIsPasswordConfirm(true);
-    } else {
-      setPasswordConfirmMessage("비밀번호가 일치하지 않습니다.");
-      setIsPasswordConfirm(false);
-    }
+  //이메일 중복 확인
+  const handleEmailConfirmChange = (e) => {
+    e.preventDefault();
+    checkEmail(signUpForm.email)
+      .then((response) => {
+        setEmailConfirmMessage(response.message);
+        setIsEmailConfirm(true);
+      })
+      .catch((e) => {
+        console.log(e);
+        setEmailConfirmMessage(e.exception.errorMessage);
+        setIsEmailConfirm(false);
+      });
   };
 
+  //이메일 인증번호 요청하기
+  const handleRequestEmailCode = (e) => {
+    e.preventDefault();
+    requestEmailCode(signUpForm.email)
+      .then((response) => {
+        window.alert(response.message);
+        setIsEmailCodeSend(true);
+      })
+      .catch((e) => {
+        console.log(e);
+        window.alert(e.exception.errorMessage);
+        setIsEmailCodeSend(false);
+      });
+  };
+
+  //이메일 인증번호 확인 요청하기
+  const handleRequestCodeVertify = (e) => {
+    e.preventDefault();
+    requestEmailVerify(signUpForm.email, "zbIFcL9b")
+      .then((response) => {
+        window.alert(response.message);
+        setIsEmailCodeConfirm(true);
+      })
+      .catch((e) => {
+        console.log(e);
+        window.alert(e.exception.errorMessage);
+        setIsEmailCodeConfirm(false);
+      });
+  };
+
+  //아이디 중복 확인
   const handleUsernameConfirmChange = (e) => {
     e.preventDefault();
     checkUsername(signUpForm.username)
@@ -60,9 +105,28 @@ const SignUp = () => {
       });
   };
 
-  const handleSignUpFormSubmit = (e) => {
+  //비밀번호 확인
+  const handlePasswordConfirmChange = (e) => {
+    const passwordInput = e.target.value;
+    setPasswordConfirm(e.target.value);
+    if (signUpForm.password === passwordInput) {
+      setPasswordConfirmMessage("");
+      setIsPasswordConfirm(true);
+    } else {
+      setPasswordConfirmMessage("비밀번호가 일치하지 않습니다.");
+      setIsPasswordConfirm(false);
+    }
+  };
+
+  //회원가입 요청 보내기 -> 비밀번호 일치, 닉네임 중복 X, 이메일 중복 X, 이메일 인증 완료
+  const onClickSignUpFormSubmit = (e) => {
     e.preventDefault();
-    if (isPasswordConfirm && isUsernameConfirm) {
+    if (
+      isPasswordConfirm &&
+      isUsernameConfirm &&
+      // isEmailConfirm &&
+      isEmailCodeConfirm
+    ) {
       signUp(signUpForm)
         .then((response) => {
           window.alert(response.message);
@@ -82,63 +146,57 @@ const SignUp = () => {
       <div className={styles.container}>
         <img className={styles.logo} src={logo} alt='갓생일기'></img>
         <h2>회원가입</h2>
-        <form className={styles.signUpForm} onSubmit={handleSignUpFormSubmit}>
-          <label htmlFor='name'>휴대폰 인증</label>
-          <input
-            placeholder='홍길동'
-            id='name'
-            type='text'
-            name='name'
-            required
-            value={signUpForm.name}
-            onChange={handleSignUpFormChange}
-          ></input>
-          <input
-            placeholder='2001.01.01'
-            id='birthdate'
-            type='text'
-            name='birthdate'
-            required
-            value={signUpForm.birthDate}
-            onChange={handleSignUpFormChange}
-          ></input>
-          <div className={styles.phoneBox}>
-            <select
-              id='carrier'
-              name='carrier'
-              className={styles.select}
-              required
-            >
-              <option value='' disabled>
-                통신사 선택
-              </option>
-              <option value='skt'>SKT</option>
-              <option value='kt'>KT</option>
-              <option value='lguplus'>LGU+</option>
-              <option value='mvno'>알뜰폰</option>
-            </select>
+        <form className={styles.signUpForm} onSubmit={onClickSignUpFormSubmit}>
+          <label htmlFor='email'>이메일 인증</label>
+          <div className={styles.duplicate}>
             <input
-              placeholder='01012345678'
-              id='phone'
-              type='text'
-              name='phone'
+              placeholder='이메일'
+              id='email'
+              type='email'
+              name='email'
               required
+              value={signUpForm.email}
+              onChange={handleSignUpFormChange}
             ></input>
+            <button
+              className={styles.button}
+              onClick={handleEmailConfirmChange}
+            >
+              중복 확인
+            </button>
           </div>
-          <button className={styles.button}>인증번호 요청하기</button>
-          <label htmlFor='vertifycode'>인증번호 입력</label>
-          <input
-            placeholder='인증번호 입력'
-            id='vertifycode'
-            type='text'
-            name='vertifycode'
-            required
-          ></input>
-          <div className={styles.vertify}>
-            <p>남은 시간 3:00</p>
-            <p>재전송</p>
-          </div>
-          <button className={styles.button}>인증하기</button>
+          {emailConfirmMessage && (
+            <p className={styles.message}>{emailConfirmMessage}</p>
+          )}
+          <button
+            className={styles.button}
+            onClick={handleRequestEmailCode}
+            disabled={isEmailCodeConfirm}
+          >
+            인증번호 요청하기
+          </button>
+          {isEmailCodeSend && !isEmailCodeConfirm && (
+            <>
+              <label htmlFor='vertifycode'>인증번호 입력</label>
+              <input
+                placeholder='인증번호 입력'
+                id='vertifycode'
+                type='text'
+                name='vertifycode'
+                required
+              ></input>
+              <div className={styles.vertify}>
+                <p>남은 시간 3:00</p>
+                <p>재전송</p>
+              </div>
+              <button
+                className={styles.button}
+                onClick={handleRequestCodeVertify}
+              >
+                인증하기
+              </button>
+            </>
+          )}
           <label htmlFor='username'>아이디</label>
           <div className={styles.duplicate}>
             <input
@@ -173,7 +231,7 @@ const SignUp = () => {
           <input
             placeholder='비밀번호 확인'
             id='passwordConfirm'
-            type='text'
+            type='password'
             name='passwordConfirm'
             required
             value={passwordConfirm}
@@ -182,19 +240,26 @@ const SignUp = () => {
           {passwordConfirmMessage && (
             <p className={styles.message}>{passwordConfirmMessage}</p>
           )}
-          <label htmlFor='email'>이메일</label>
-          <div className={styles.duplicate}>
-            <input
-              placeholder='이메일'
-              id='email'
-              type='email'
-              name='email'
-              required
-              value={signUpForm.email}
-              onChange={handleSignUpFormChange}
-            ></input>
-            <button className={styles.button}>중복 확인</button>
-          </div>
+          <label htmlFor='name'>이름</label>
+          <input
+            placeholder='홍길동'
+            id='name'
+            type='text'
+            name='name'
+            required
+            value={signUpForm.name}
+            onChange={handleSignUpFormChange}
+          ></input>
+          <label htmlFor='birthDate'>생년월일</label>
+          <input
+            placeholder='2001-01-01'
+            id='birthDate'
+            type='text'
+            name='birthDate'
+            required
+            value={signUpForm.birthDate}
+            onChange={handleSignUpFormChange}
+          ></input>
           <label htmlFor='nickname'>닉네임</label>
           <input
             placeholder='닉네임'

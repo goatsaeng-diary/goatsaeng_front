@@ -1,0 +1,234 @@
+/* PostList */
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 870px;
+}
+.listButtonBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  margin: auto;
+}
+.listButton {
+  font-size: 20px;
+  font-weight: bold;
+  background-color: white;
+  padding: 10px 20px;
+  border: none;
+  border-bottom: 5px solid transparent;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.active {
+  border-color: black;
+}
+.postList {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 10px 0;
+}
+.postListBox {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 30px;
+  border: 1px solid #d5d5d5;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+.postListBox > img {
+  width: 788px;
+  height: 300px;
+  border: 1px solid #d5d5d5;
+  border-radius: 8px;
+  margin: 0 auto 10px;
+}
+.postListBoxHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.postListBoxHeader > img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50px;
+  margin-right: 10px;
+}
+.headerNickname {
+  font-size: 18px;
+  color: #6b6b6b;
+  cursor: pointer;
+}
+.postListBoxHeader > p:nth-child(3) {
+  margin-left: auto;
+}
+.headerDetail {
+  font-size: 14px;
+  color: #6b6b6b;
+  margin-right: 10px;
+}
+.headerOption {
+  color: #6b6b6b;
+  cursor: pointer;
+}
+.postListBox > h2 {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+.postListContent {
+  margin: 5px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* 줄 수 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.postListDetail {
+  color: #6b6b6b;
+  font-size: 14px;
+  margin: 0;
+}
+/* PostCreate */
+.createBox {
+  display: flex;
+  flex-direction: column;
+  width: 850px;
+  border: 1px solid #d5d5d5;
+  border-radius: 8px;
+  padding: 20px 20px;
+  box-sizing: border-box;
+  margin: 10px;
+}
+.createBoxTitle {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px 15px;
+  border: none;
+  border-bottom: 1px solid #d5d5d5;
+  margin-bottom: 15px;
+}
+.createBoxFile {
+  margin-bottom: 15px;
+}
+.createBoxContent {
+  min-height: 430px;
+  font-size: 16px;
+  padding: 10px;
+  border: 1px solid #d5d5d5;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  resize: vertical;
+}
+.createButtonBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.postCancelButton {
+  font-size: 14px;
+  background-color: white;
+  padding: 4px 10px;
+  border: 1px solid #bcbcbc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.postButton {
+  font-size: 14px;
+  color: white;
+  background-color: #227c9d;
+  padding: 4px 10px;
+  border: 1px solid #227c9d;
+  border-radius: 4px;
+  cursor: pointer;
+}
+/* PostPage */
+.page {
+  display: flex;
+  flex-direction: column;
+  width: 850px;
+  border: 1px solid #d5d5d5;
+  border-radius: 8px;
+  padding: 20px 20px;
+  box-sizing: border-box;
+  margin: 10px;
+}
+.goBack {
+  font-size: 24px;
+  cursor: pointer;
+}
+.page > h2 {
+  margin: 20px 0 10px;
+}
+.pageHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+.pageHeader > img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50px;
+  cursor: pointer;
+}
+.pageNickname {
+  color: #333333;
+  cursor: pointer;
+}
+.pageCreatedDate {
+  font-size: 15px;
+  color: #8d8d8d;
+}
+.page > hr {
+  width: 808px;
+  margin: 10px 0 10px;
+}
+.page > img {
+  margin: 0 auto 20px;
+}
+.pageContent {
+  margin: 0 auto 20px;
+}
+.pageDetail {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.likeButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 4px 5px;
+  border: 1px solid #d5d5d5;
+  border-radius: 12px;
+  margin-right: 10px;
+  gap: 4px;
+  cursor: pointer;
+}
+.heart {
+  font-size: 20px;
+}
+.heart:hover {
+  color: red;
+}
+.heartActive {
+  color: red;
+}
+.likeButton > p {
+  margin: 0;
+}
+.optionButton:nth-child(3) {
+  margin-left: auto;
+  margin-right: 10px;
+}
+.optionButton {
+  font-size: 14px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
