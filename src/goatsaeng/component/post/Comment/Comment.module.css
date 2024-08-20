@@ -10,15 +10,14 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid #d5d5d5;
-  margin: 10px 0;
+  border-top: 1px solid #d5d5d5;
 }
 .itemBox {
   position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 0 12px;
+  margin: 10px 12px 0;
 }
 .itemBox > img {
   width: 36px;
@@ -141,4 +140,49 @@
   border: 1px solid #227c9d;
   border-radius: 4px;
   cursor: pointer;
+}
+.replyCreateContainer {
+  background-color: #dff6fe;
+}
+.replyCreate {
+  display: flex;
+  flex-direction: column;
+  height: 120px;
+  border: 1px solid #d5d5d5;
+  margin: 10px;
+  margin-left: 60px;
+}
+.replyCreateContainer {
+  background-color: #f5fafd; /* 밝은 파스텔 블루 */
+}
+.replyCreate {
+  display: flex;
+  flex-direction: column;
+  height: 120px;
+  border: 1px solid #d5d5d5;
+  margin: 10px;
+  margin-left: 60px;
+  background-color: #f0fbff; /* 더 차분한 파스텔 블루 */
+}
+.replyContainer {
+  display: flex;
+  flex-direction: row;
+  margin-left: 20px;
+}
+.replyList {
+  flex: 1;
+  background-color: #f0fbff; /* 대댓글 배경에 동일한 색상 적용 */
+}
+.elbow {
+  color: #d5d5d5;
+  font-size: 36px;
+  margin-top: 5px;
+}
+.replyItem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 732px;
+  border-top: 1px solid #d5d5d5;
+  background-color: #f0fbff; /* 대댓글 항목 배경 */
 }
