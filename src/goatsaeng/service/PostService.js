@@ -40,9 +40,9 @@ export function createPost(postCreateRequest) {
   });
 } //글 작성하기
 
-export function updatePost(postUpdateRequest) {
+export function updatePost(postUpdateRequest, postId) {
   return request({
-    url: API_BASE_URL + "/api/post/update",
+    url: API_BASE_URL + "/api/post/edit" + postId,
     method: "POST",
     body: JSON.stringify(postUpdateRequest),
   });
