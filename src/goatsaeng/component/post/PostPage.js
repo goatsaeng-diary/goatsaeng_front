@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { deletePost, showPost } from "../../service/PostService";
+import { deletePost, showPost, showImage } from "../../service/PostService";
 
 import styles from "./Post.module.css";
 import { FaArrowLeft } from "react-icons/fa";
@@ -78,7 +78,7 @@ const PostPage = () => {
           <p className={styles.pageCreatedDate}>{post.createdDate}</p>
         </div>
         <hr />
-        <img src='https://via.placeholder.com/808x500' alt='본문 이미지' />
+        <img src={post.files} alt='본문 이미지' />
         <p className={styles.pageContent}>{post.content} </p>
         <div className={styles.pageDetail}>
           <div className={styles.likeButton} onClick={onClickLike}>

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createPost } from "../../service/PostService";
-
 import styles from "./Post.module.css";
 
 const PostCreate = () => {
@@ -10,6 +9,7 @@ const PostCreate = () => {
     title: "",
     content: "",
   });
+  const [files, setFiles] = useState([]);
 
   const handlePostFormChange = (e) => {
     const changedField = e.target.name;
@@ -19,16 +19,22 @@ const PostCreate = () => {
     });
   };
 
+  const handleFileChange = (e) => {
+    setFiles(Array.from(e.target.files));
+  };
+
   const handlePostFormSubmit = (e) => {
     e.preventDefault();
-    createPost(postForm)
+
+    // createPost 함수에 postForm과 files를 직접 전달
+    createPost(postForm, files)
       .then((response) => {
         window.alert(response.message);
         navigate("/");
       })
       .catch((e) => {
         console.log(e);
-        window.alert(e.exception.errorMessage);
+        console.log(e.response?.data?.exception?.errorMessage);
       });
   };
 
@@ -50,8 +56,13 @@ const PostCreate = () => {
           value={postForm.title}
           required
           onChange={handlePostFormChange}
-        ></input>
-        <input className={styles.createBoxFile} type='file'></input>
+        />
+        <input
+          className={styles.createBoxFile}
+          type='file'
+          multiple
+          onChange={handleFileChange}
+        />
         <textarea
           className={styles.createBoxContent}
           placeholder='내용을 입력하세요.'
@@ -61,7 +72,7 @@ const PostCreate = () => {
           value={postForm.content}
           onChange={handlePostFormChange}
           required
-        ></textarea>
+        />
         <div className={styles.createButtonBox}>
           <button
             className={styles.postCancelButton}
@@ -77,4 +88,5 @@ const PostCreate = () => {
     </div>
   );
 };
+
 export default PostCreate;
