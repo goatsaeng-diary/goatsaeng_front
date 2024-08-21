@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   checkEmail,
@@ -7,10 +7,8 @@ import {
   requestEmailVerify,
   signUp,
 } from "../../service/AuthService";
-
 import styles from "./Auth.module.css";
 import logo from "../../../image/logo.png";
-import { useEffect } from "react";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -23,56 +21,67 @@ const SignUp = () => {
     nickname: "",
   });
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [email, setEmail] = useState("");
+  const [birth, setBirth] = useState("");
 
-  //오류 메시지
+  // 오류 메시지
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
   const [usernameConfirmMessage, setUsernameConfirmMessage] = useState("");
   const [emailConfirmMessage, setEmailConfirmMessage] = useState("");
 
-  //유효성 검사
+  // 유효성 검사
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
   const [isUsernameConfirm, setIsUsernameConfirm] = useState(false);
   const [isEmailConfirm, setIsEmailConfirm] = useState(false);
 
-  //이메일 인증
+  // 이메일 인증
   const [isEmailCodeSend, setIsEmailCodeSend] = useState(false);
   const [isEmailCodeConfirm, setIsEmailCodeConfirm] = useState(false);
-
   const [timeLeft, setTimeLeft] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-
   const [emailVerificationCode, setEmailVerificationCode] = useState("");
-
-  // 이메일 인증 관련 상태 변수
-  const [isEmailVerified, setIsEmailVerified] = useState(false);
   const [verificationCodeInput, setVerificationCodeInput] = useState("");
   const [verificationButtonText, setVerificationButtonText] =
     useState("인증 요청");
 
-  // 타이머 useEffect
   useEffect(() => {
     if (timeLeft > 0) {
-      const timerId = setTimeout(() => {
-        setTimeLeft(timeLeft - 1);
-      }, 1000);
+      const timerId = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
       return () => clearTimeout(timerId);
-    } else if (timeLeft === 0) {
+    } else if (timeLeft === 0 && isEmailCodeSend) {
       setVerificationButtonText("인증 재요청");
       window.alert("인증 시간이 만료되었습니다. 다시 요청해주세요.");
     }
-  }, [timeLeft, emailVerificationCode]);
+  }, [timeLeft, isEmailCodeSend]);
 
-  const handleSignUpFormChange = (e) => {
-    const changedField = e.target.name;
-    setSignUpForm({
-      ...signUpForm,
-      [changedField]: e.target.value,
-    });
+  //이메일 유효성 검사
+  const onEmailChange = (e) => {
+    const emailRegex =
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    const emailInput = e.target.value;
+    setEmail(emailInput);
+    setSignUpForm({ ...signUpForm, email: emailInput });
+
+    if (!emailRegex.test(emailInput)) {
+      setEmailConfirmMessage("유효하지 않은 이메일 형식입니다.");
+      setIsEmailConfirm(false);
+    } else {
+      setIsEmailConfirm(true);
+      setEmailConfirmMessage("");
+    }
   };
 
-  //이메일 중복 확인
+  //회원가입 폼 입력시 handle
+  const handleSignUpFormChange = (e) => {
+    const { name, value } = e.target;
+    setSignUpForm({ ...signUpForm, [name]: value });
+  };
+
+  //이메일 입력시 handle 및 이메일 중복 확인 요청
   const handleEmailConfirmChange = (e) => {
     e.preventDefault();
+    if (!isEmailConfirm) return;
+
     checkEmail(signUpForm.email)
       .then((response) => {
         setEmailConfirmMessage(response.message);
@@ -85,13 +94,16 @@ const SignUp = () => {
       });
   };
 
-  //이메일 인증번호 요청하기
+  //이메일 코드 입력 handle 및 이메일 인증 코드 요청
   const handleRequestEmailCode = (e) => {
     e.preventDefault();
-    setIsLoading(true); // 로딩 시작
+    if (!isEmailConfirm) return;
+
+    setIsLoading(true);
     requestEmailCode(signUpForm.email)
       .then((response) => {
         window.alert(response.message);
+        setEmailVerificationCode(response.data.code);
         setIsEmailCodeSend(true);
         setVerificationButtonText("인증 재요청");
         setTimeLeft(180); // 3분 = 180초
@@ -100,13 +112,14 @@ const SignUp = () => {
         console.log(e);
         window.alert(e.exception.errorMessage);
         setIsEmailCodeSend(false);
+        setIsLoading(false);
       });
   };
 
-  //이메일 인증번호 확인 요청하기
-  const handleRequestCodeVertify = (e) => {
+  //이메일 인증번호 요청
+  const handleRequestCodeVerify = (e) => {
     e.preventDefault();
-    requestEmailVerify(signUpForm.email, emailVerificationCode)
+    requestEmailVerify(signUpForm.email, verificationCodeInput)
       .then((response) => {
         window.alert(response.message);
         setIsEmailCodeConfirm(true);
@@ -118,7 +131,16 @@ const SignUp = () => {
       });
   };
 
-  //아이디 중복 확인
+  //시간 설정하기 - 인증번호 입력 3분
+  const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    return `${minutes.toString().padStart(2, "0")}:${seconds
+      .toString()
+      .padStart(2, "0")}`;
+  };
+
+  //닉네임 중복 확인
   const handleUsernameConfirmChange = (e) => {
     e.preventDefault();
     checkUsername(signUpForm.username)
@@ -133,10 +155,10 @@ const SignUp = () => {
       });
   };
 
-  //비밀번호 확인
+  //비밀번호 입력 확인
   const handlePasswordConfirmChange = (e) => {
     const passwordInput = e.target.value;
-    setPasswordConfirm(e.target.value);
+    setPasswordConfirm(passwordInput);
     if (signUpForm.password === passwordInput) {
       setPasswordConfirmMessage("");
       setIsPasswordConfirm(true);
@@ -146,13 +168,13 @@ const SignUp = () => {
     }
   };
 
-  //회원가입 요청 보내기 -> 비밀번호 일치, 닉네임 중복 X, 이메일 중복 X, 이메일 인증 완료
+  //회원가입폼
   const onClickSignUpFormSubmit = (e) => {
     e.preventDefault();
     if (
       isPasswordConfirm &&
       isUsernameConfirm &&
-      // isEmailConfirm &&
+      isEmailConfirm &&
       isEmailCodeConfirm
     ) {
       signUp(signUpForm)
@@ -165,14 +187,32 @@ const SignUp = () => {
           window.alert(e.exception.errorMessage);
         });
     } else {
-      window.alert("인증이 필요합니다.");
+      window.alert("모든 인증이 필요합니다.");
     }
+  };
+
+  //생년월일 입력하기
+  const handleBirthChange = (e) => {
+    const birthInput = e.target.value;
+    if (birthInput.includes(" ") || birthInput.length > 8) {
+      e.preventDefault();
+      return;
+    }
+    const formattedBirth = birthInput.replace(
+      /(\d{4})(\d{2})(\d{2})/,
+      "$1-$2-$3"
+    );
+    setBirth(formattedBirth); // 생년월일 입력값 업데이트
+    setSignUpForm({
+      ...signUpForm,
+      birth: formattedBirth, // signUpForm의 birth도 업데이트
+    });
   };
 
   return (
     <div className={styles.page}>
       <div className={styles.container}>
-        <img className={styles.logo} src={logo} alt='갓생일기'></img>
+        <img className={styles.logo} src={logo} alt='갓생일기' />
         <h2>회원가입</h2>
         <form className={styles.signUpForm} onSubmit={onClickSignUpFormSubmit}>
           <label htmlFor='email'>이메일 인증</label>
@@ -183,12 +223,14 @@ const SignUp = () => {
               type='email'
               name='email'
               required
-              value={signUpForm.email}
-              onChange={handleSignUpFormChange}
-            ></input>
+              value={email}
+              onChange={onEmailChange}
+              disabled={isEmailCodeSend}
+            />
             <button
               className={styles.button}
               onClick={handleEmailConfirmChange}
+              disabled={!isEmailConfirm || isEmailCodeSend}
             >
               중복 확인
             </button>
@@ -199,31 +241,38 @@ const SignUp = () => {
           <button
             className={styles.button}
             onClick={handleRequestEmailCode}
-            disabled={isEmailCodeConfirm}
+            disabled={isEmailCodeConfirm || !isEmailConfirm}
           >
             인증번호 요청하기
           </button>
           {isEmailCodeSend && !isEmailCodeConfirm && (
             <>
-              <label htmlFor='vertifycode'>인증번호 입력</label>
+              <label htmlFor='verificationCode'>인증번호 입력</label>
               <input
                 placeholder='인증번호 입력'
-                id='vertifycode'
+                id='verificationCode'
                 type='text'
-                name='vertifycode'
+                name='verificationCode'
                 required
-              ></input>
+                value={verificationCodeInput}
+                onChange={(e) => setVerificationCodeInput(e.target.value)}
+              />
               <div className={styles.vertify}>
-                <p>남은 시간 3:00</p>
-                <p>재전송</p>
+                {timeLeft > 0 && (
+                  <span className={styles.timer}>{formatTime(timeLeft)}</span>
+                )}
               </div>
               <button
                 className={styles.button}
-                onClick={handleRequestCodeVertify}
+                onClick={handleRequestCodeVerify}
+                disabled={isEmailCodeConfirm || timeLeft === 0}
               >
                 인증하기
               </button>
             </>
+          )}
+          {isEmailCodeConfirm && (
+            <p className={styles.message}>이메일 인증 완료되었습니다.</p>
           )}
           <label htmlFor='username'>아이디</label>
           <div className={styles.duplicate}>
@@ -235,7 +284,7 @@ const SignUp = () => {
               required
               value={signUpForm.username}
               onChange={handleSignUpFormChange}
-            ></input>
+            />
             <button
               className={styles.button}
               onClick={handleUsernameConfirmChange}
@@ -255,7 +304,7 @@ const SignUp = () => {
             required
             value={signUpForm.password}
             onChange={handleSignUpFormChange}
-          ></input>
+          />
           <input
             placeholder='비밀번호 확인'
             id='passwordConfirm'
@@ -264,7 +313,7 @@ const SignUp = () => {
             required
             value={passwordConfirm}
             onChange={handlePasswordConfirmChange}
-          ></input>
+          />
           {passwordConfirmMessage && (
             <p className={styles.message}>{passwordConfirmMessage}</p>
           )}
@@ -277,17 +326,18 @@ const SignUp = () => {
             required
             value={signUpForm.name}
             onChange={handleSignUpFormChange}
-          ></input>
+          />
           <label htmlFor='birthDate'>생년월일</label>
           <input
-            placeholder='2001-01-01'
+            placeholder='20010101'
             id='birthDate'
             type='text'
             name='birthDate'
             required
-            value={signUpForm.birthDate}
-            onChange={handleSignUpFormChange}
-          ></input>
+            value={birth}
+            onChange={handleBirthChange}
+            inputMode='numeric'
+          />
           <label htmlFor='nickname'>닉네임</label>
           <input
             placeholder='닉네임'
@@ -297,7 +347,7 @@ const SignUp = () => {
             required
             value={signUpForm.nickname}
             onChange={handleSignUpFormChange}
-          ></input>
+          />
           <button className={styles.button}>회원가입</button>
         </form>
       </div>

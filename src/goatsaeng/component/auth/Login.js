@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN } from "../../constant/backendAPI";
+import { useAuth } from "../../context/AuthContext";
 import { logIn, socialLogin } from "../../service/AuthService";
 
 import styles from "./Auth.module.css";
@@ -15,6 +16,7 @@ const Login = () => {
     username: "",
     password: "",
   });
+  const { setIsLoggedIn } = useAuth();
 
   const handleLoginFormChange = (e) => {
     const changedField = e.target.name;
@@ -26,11 +28,12 @@ const Login = () => {
 
   const onClickLoginFormSubmit = (e) => {
     e.preventDefault();
+    console.log(loginForm);
     logIn(loginForm)
       .then((response) => {
         localStorage.setItem(ACCESS_TOKEN, response.data.accessToken);
         window.alert(response.message);
-        console.log(response);
+        setIsLoggedIn(true);
         navigate("/");
       })
       .catch((e) => {

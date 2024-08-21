@@ -1,3 +1,4 @@
+import "normalize.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./goatsaeng/context/AuthContext";
 import styles from "./App.module.css";
