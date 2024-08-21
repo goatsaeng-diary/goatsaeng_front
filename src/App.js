@@ -17,6 +17,7 @@ import PostPage from "./goatsaeng/component/Post/PostPage";
 import RecordList from "./goatsaeng/component/Record/RecordList";
 import RecordPage from "./goatsaeng/component/Record/RecordPage";
 import RecordCreate from "./goatsaeng/component/Record/RecordCreate";
+import OAuth2RedirectHandler from "./goatsaeng/component/Auth/OAuth2RedirectHandler";
 
 function App() {
   return (
@@ -38,6 +39,14 @@ function App() {
               element={
                 <AuthLayout>
                   <SignUp />
+                </AuthLayout>
+              }
+            />
+            <Route
+              path='/oauth2/redirect'
+              element={
+                <AuthLayout>
+                  <OAuth2RedirectHandler />
                 </AuthLayout>
               }
             />

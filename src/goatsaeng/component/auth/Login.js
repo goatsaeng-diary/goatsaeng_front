@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ACCESS_TOKEN, API_BASE_URL } from "../../constant/backendAPI";
-import { logIn } from "../../service/AuthService";
+import { ACCESS_TOKEN } from "../../constant/backendAPI";
+import { logIn, socialLogin } from "../../service/AuthService";
 
 import styles from "./Auth.module.css";
 import logo from "../../../image/logo.png";
@@ -44,7 +44,7 @@ const Login = () => {
   };
 
   const onClickSocialLogin = (provider) => {
-    window.location.href = `${API_BASE_URL}/oauth2/authorization/${provider}`;
+    socialLogin(provider);
   };
 
   return (

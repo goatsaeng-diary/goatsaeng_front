@@ -72,6 +72,25 @@ export function getUserProfile() {
   });
 } //본인 정보 요청
 
+// 소셜 로그인 시작
+export const socialLogin = (provider) => {
+  let url;
+  switch (provider) {
+    case "kakao":
+      url = KAKAO_AUTH_URL;
+      break;
+    case "naver":
+      url = NAVER_AUTH_URL;
+      break;
+    case "google":
+      url = GOOGLE_AUTH_URL;
+      break;
+    default:
+      throw new Error("Unknown provider");
+  }
+  window.location.href = url;
+};
+
 export function checkIfLoggedIn() {
   if (!localStorage.getItem(ACCESS_TOKEN)) {
     // window.alert("로그인이 필요한 서비스입니다.");

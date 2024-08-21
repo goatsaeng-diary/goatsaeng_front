@@ -26,7 +26,7 @@ const PostPage = () => {
       })
       .catch((e) => {
         console.log(e);
-        window.alert(e.exception.errorMessage);
+        window.alert(e.error);
       });
   };
 
