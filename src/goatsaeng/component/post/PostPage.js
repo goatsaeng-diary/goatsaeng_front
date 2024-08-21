@@ -78,7 +78,13 @@ const PostPage = () => {
           <p className={styles.pageCreatedDate}>{post.createdDate}</p>
         </div>
         <hr />
-        <img src={post.files} alt='본문 이미지' />
+        <img
+          src={
+            "http://localhost:8080/display?filename=2024/08/21/e9c9a588-e0d7-4996-88fd-36e7d5f2644e"
+          }
+          alt='본문 이미지'
+          className={styles.contentImage}
+        />
         <p className={styles.pageContent}>{post.content} </p>
         <div className={styles.pageDetail}>
           <div className={styles.likeButton} onClick={onClickLike}>

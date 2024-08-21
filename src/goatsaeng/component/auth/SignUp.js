@@ -10,6 +10,7 @@ import {
 
 import styles from "./Auth.module.css";
 import logo from "../../../image/logo.png";
+import { useEffect } from "react";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -37,6 +38,30 @@ const SignUp = () => {
   const [isEmailCodeSend, setIsEmailCodeSend] = useState(false);
   const [isEmailCodeConfirm, setIsEmailCodeConfirm] = useState(false);
 
+  const [timeLeft, setTimeLeft] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [emailVerificationCode, setEmailVerificationCode] = useState("");
+
+  // 이메일 인증 관련 상태 변수
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
+  const [verificationCodeInput, setVerificationCodeInput] = useState("");
+  const [verificationButtonText, setVerificationButtonText] =
+    useState("인증 요청");
+
+  // 타이머 useEffect
+  useEffect(() => {
+    if (timeLeft > 0) {
+      const timerId = setTimeout(() => {
+        setTimeLeft(timeLeft - 1);
+      }, 1000);
+      return () => clearTimeout(timerId);
+    } else if (timeLeft === 0) {
+      setVerificationButtonText("인증 재요청");
+      window.alert("인증 시간이 만료되었습니다. 다시 요청해주세요.");
+    }
+  }, [timeLeft, emailVerificationCode]);
+
   const handleSignUpFormChange = (e) => {
     const changedField = e.target.name;
     setSignUpForm({
@@ -63,10 +88,13 @@ const SignUp = () => {
   //이메일 인증번호 요청하기
   const handleRequestEmailCode = (e) => {
     e.preventDefault();
+    setIsLoading(true); // 로딩 시작
     requestEmailCode(signUpForm.email)
       .then((response) => {
         window.alert(response.message);
         setIsEmailCodeSend(true);
+        setVerificationButtonText("인증 재요청");
+        setTimeLeft(180); // 3분 = 180초
       })
       .catch((e) => {
         console.log(e);
@@ -78,7 +106,7 @@ const SignUp = () => {
   //이메일 인증번호 확인 요청하기
   const handleRequestCodeVertify = (e) => {
     e.preventDefault();
-    requestEmailVerify(signUpForm.email, "zbIFcL9b")
+    requestEmailVerify(signUpForm.email, emailVerificationCode)
       .then((response) => {
         window.alert(response.message);
         setIsEmailCodeConfirm(true);

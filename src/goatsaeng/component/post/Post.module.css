@@ -234,3 +234,7 @@
   border: none;
   cursor: pointer;
 }
+.contentImage {
+  height: 50%;
+  width: 50%;
+}

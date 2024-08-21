@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ACCESS_TOKEN } from "../../constant/backendAPI";
-import { logIn, withdraw } from "../../service/AuthService";
+import { ACCESS_TOKEN, API_BASE_URL } from "../../constant/backendAPI";
+import { logIn } from "../../service/AuthService";
 
 import styles from "./Auth.module.css";
 import logo from "../../../image/logo.png";
+import kakao from "../../../image/kakao.png";
+import naver from "../../../image/naver.png";
+import google from "../../../image/google.png";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -40,6 +43,10 @@ const Login = () => {
     navigate("/signup");
   };
 
+  const onClickSocialLogin = (provider) => {
+    window.location.href = `${API_BASE_URL}/oauth2/authorization/${provider}`;
+  };
+
   return (
     <div className={styles.page}>
       <div className={styles.container}>
@@ -67,9 +74,24 @@ const Login = () => {
         <p className={styles.forgetAuth}>아이디/비밀번호 찾기</p>
         <hr></hr>
         <div className={styles.social}>
-          <img alt='google'></img>
-          <img alt='kakao'></img>
-          <img alt='naver'></img>
+          <img
+            src={kakao}
+            alt='kakao'
+            onClick={() => onClickSocialLogin("kakao")}
+            style={{ cursor: "pointer" }}
+          />
+          <img
+            src={naver}
+            alt='naver'
+            onClick={() => onClickSocialLogin("naver")}
+            style={{ cursor: "pointer" }}
+          />
+          <img
+            src={google}
+            alt='google'
+            onClick={() => onClickSocialLogin("google")}
+            style={{ cursor: "pointer" }}
+          />
         </div>
         <p className={styles.goSignUp}>
           계정이 없으신가요? <strong onClick={onClickGoSignUp}>회원가입</strong>

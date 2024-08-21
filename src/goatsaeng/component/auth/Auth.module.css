@@ -65,8 +65,15 @@ hr {
   width: 300px;
   margin: 20px;
 }
+
 .social > img {
+  width: 50px;
+  height: 50px;
   cursor: pointer;
+}
+
+.social > img:nth-child(1) {
+  border-radius: 6px;
 }
 .goSignUp {
   font-size: 17px;

@@ -1,4 +1,10 @@
-import { ACCESS_TOKEN, API_BASE_URL } from "../constant/backendAPI";
+import {
+  ACCESS_TOKEN,
+  API_BASE_URL,
+  KAKAO_AUTH_URL,
+  NAVER_AUTH_URL,
+  GOOGLE_AUTH_URL,
+} from "../constant/backendAPI";
 import { request } from "./APIService";
 
 export function logIn(loginRequest) {
