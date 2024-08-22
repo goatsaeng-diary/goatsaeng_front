@@ -79,9 +79,7 @@ const PostPage = () => {
         </div>
         <hr />
         <img
-          src={
-            "http://localhost:8080/display?filename=2024/08/21/e9c9a588-e0d7-4996-88fd-36e7d5f2644e"
-          }
+          src={"http://localhost:8080/display?filename=" + post.files}
           alt='본문 이미지'
           className={styles.contentImage}
         />

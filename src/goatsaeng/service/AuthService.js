@@ -65,13 +65,6 @@ export function requestEmailVerify(email, code) {
   });
 } //이메일 인증 확인 요청
 
-export function getUserProfile() {
-  return request({
-    url: API_BASE_URL + "/api/auth/info",
-    method: "GET",
-  });
-} //본인 정보 요청
-
 // 소셜 로그인 시작
 export const socialLogin = (provider) => {
   let url;

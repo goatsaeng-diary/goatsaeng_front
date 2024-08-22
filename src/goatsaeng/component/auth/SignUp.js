@@ -179,7 +179,9 @@ const SignUp = () => {
     ) {
       signUp(signUpForm)
         .then((response) => {
+          console.log(signUpForm);
           window.alert(response.message);
+
           navigate("/login");
         })
         .catch((e) => {
@@ -191,24 +193,28 @@ const SignUp = () => {
     }
   };
 
-  //생년월일 입력하기
+  // 생년월일 입력하기
   const handleBirthChange = (e) => {
-    const birthInput = e.target.value;
+    const birthInput = e.target.value.replace(/-/g, ""); // 기존에 입력된 '-'를 제거
     if (birthInput.includes(" ") || birthInput.length > 8) {
       e.preventDefault();
       return;
     }
-    const formattedBirth = birthInput.replace(
-      /(\d{4})(\d{2})(\d{2})/,
-      "$1-$2-$3"
-    );
+
+    let formattedBirth = birthInput;
+    if (birthInput.length >= 4) {
+      formattedBirth = birthInput.slice(0, 4) + "-" + birthInput.slice(4);
+    }
+    if (birthInput.length >= 6) {
+      formattedBirth = formattedBirth.slice(0, 7) + "-" + birthInput.slice(6);
+    }
+
     setBirth(formattedBirth); // 생년월일 입력값 업데이트
     setSignUpForm({
       ...signUpForm,
-      birth: formattedBirth, // signUpForm의 birth도 업데이트
+      birthDate: formattedBirth, // signUpForm의 birthDate도 업데이트
     });
   };
-
   return (
     <div className={styles.page}>
       <div className={styles.container}>
