@@ -1,4 +1,4 @@
-/* Water */
+/* 공통 */
 .container {
   display: flex;
   flex-direction: column;
@@ -11,12 +11,31 @@
 .header {
   display: flex;
   flex-direction: row;
-  align-items: center;
   gap: 10px;
   margin: 10px auto;
 }
 .header > h2 {
   margin: 0;
+}
+.targetForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+.targetForm > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+.targetForm > button {
+  margin: 0 auto;
+}
+.pencil {
+  font-size: 24px;
+  cursor: pointer;
 }
 .goalInput {
   text-align: center;
@@ -33,49 +52,12 @@
   -webkit-appearance: none;
   margin: 0;
 }
-.cupContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 500px;
-  margin: auto;
-  gap: 10px;
-}
-.cup {
-  width: 40px;
-  height: 80px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-.empty {
-  color: #d5d5d5;
-  font-size: 40px;
-}
-.filled {
-  color: #227c9d; /* 클릭한 컵 색상 */
-  font-size: 40px;
-}
 .footer {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 20px;
   margin: auto;
-}
-.dateContainer {
-  margin: 20px 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.dateInput {
-  margin-left: 10px;
-  padding: 5px;
-  border: 1px solid #d5d5d5;
-  border-radius: 4px;
 }
 .buttonContainer {
   display: flex;
@@ -97,33 +79,35 @@
   background-color: #1b6080;
 }
 
-.timeInputs {
+/* Water */
+.cupContainer {
   display: flex;
-  flex-direction: column;
-  margin: 20px 0;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 500px;
+  margin: auto;
+  gap: 10px;
+}
+.cup {
+  width: 40px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.empty {
+  color: #d5d5d5;
+  font-size: 40px;
+}
+.filled {
+  color: #227c9d;
+  font-size: 40px;
 }
 
-.timeInputs label {
+/* Sleep */
+.sleepForm {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.timeInputs input {
-  margin-left: 10px;
-}
-
-.timeInput {
-  font-size: 16px;
-  padding: 5px;
-}
-
-.result {
-  margin-top: 20px;
-}
-
-.result p {
-  margin: 5px 0;
-  font-size: 16px;
+  margin: auto;
 }

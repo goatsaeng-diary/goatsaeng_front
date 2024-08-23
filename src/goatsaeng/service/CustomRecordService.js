@@ -32,50 +32,50 @@ export function showCustomRecord(customRecordTypeId) {
   });
 } //custom 기록 조회하기
 
-export function showAllRecordType() {
+export function showAllCustomRecordType() {
   return request({
-    url: API_BASE_URL + "/api/record/default-type",
+    url: API_BASE_URL + "/api/record/custom-type",
     method: "GET",
   });
-} //custom 기록 전체 조회하기
+} //custom 기록 전체 조회하기 --user 본인이 만든거
 
-// 기본 기록 관련
-export function createRecord(recordTypeId, recordRequest) {
+//custom 기록 type 관련
+export function createRecord(customRecordTypeId, recordRequest) {
   return request({
-    url: API_BASE_URL + "/api/record/default/" + recordTypeId,
+    url: API_BASE_URL + "/api/record/custom/" + customRecordTypeId,
     method: "POST",
     body: JSON.stringify(recordRequest),
   });
-} //기본 기록 저장하기
+} //custom 기록 저장하기
 
-export function updateRecord(recordId, recordRequest) {
+export function updateRecord(customRecordId, recordRequest) {
   return request({
-    url: API_BASE_URL + "/api/record/default/" + recordId,
+    url: API_BASE_URL + "/api/record/custom/" + customRecordId,
     method: "PUT",
     body: JSON.stringify(recordRequest),
   });
-} //기본 기록 수정하기
+} //custom 기록 수정하기
 
-export function deleteRecord(recordId) {
+export function deleteRecord(customRecordId) {
   return request({
-    url: API_BASE_URL + "/api/record/default/" + recordId,
+    url: API_BASE_URL + "/api/record/custom/" + customRecordId,
     method: "DELETE",
   });
-} //기본 기록 삭제하기
+} //custom 기록 삭제하기
 
-export function showRecord(recordId) {
+export function showRecord(customRecordId) {
   return request({
-    url: API_BASE_URL + "/api/record/default/" + recordId,
+    url: API_BASE_URL + "/api/record/custom/" + customRecordId,
     method: "GET",
   });
-} //기본 기록 단일 조회
+} //custom 기록 단일 조회
 
 export function showTodayRecord() {
   return request({
-    url: API_BASE_URL + "/api/record/default/today",
+    url: API_BASE_URL + "/api/record/custom/today",
     method: "GET",
   });
-} //기본 기록 단일 조회
+} //custom 기록 단일 조회
 
 export function showRecordMonth(page = 0, size = 5) {
   return request({
@@ -85,17 +85,18 @@ export function showRecordMonth(page = 0, size = 5) {
       `?page=${page}&size=${size}`,
     method: "GET",
   });
-} //기본 기록 당월 조회\
+} //custom 기록 당월 조회
 
-export function showRecordAverage(page = 0, size = 5) {
+export function showRecordAverage(page = 0, size = 5, customRecordTypeId) {
   return request({
     url:
       API_BASE_URL +
-      "/api/record/default/prev-average-month" +
+      "/api/record/default/prev-average-month/" +
+      customRecordTypeId +
       `?page=${page}&size=${size}`,
     method: "GET",
   });
-} //기본 기록 평균 및 전체 조회
+} //custom 기록 평균 및 전체 조회
 
 class CustomRecordService {}
 export default new CustomRecordService();

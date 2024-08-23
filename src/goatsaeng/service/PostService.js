@@ -3,30 +3,8 @@ import { API_BASE_URL } from "../constant/backendAPI";
 import { request } from "./APIService";
 import { ACCESS_TOKEN } from "../constant/backendAPI";
 
-export function showListFollow() {
-  return request({
-    url: API_BASE_URL + "/api/post/list",
-    method: "GET",
-  });
-} //전체 글 목록 가져오기 - follow
-
-export function showListRecommend() {
-  return request({
-    url: API_BASE_URL + "/api/post/recommend",
-    method: "GET",
-  });
-} //전체 글 목록 가져오기 - recommend
-
-export function showPost(postId) {
-  return request({
-    url: API_BASE_URL + "/api/post/view/" + postId,
-    method: "GET",
-  });
-} //단일 페이지 보기
-
 export function createPost(postData, files) {
   const formData = new FormData();
-
   // PostCreateDTO 데이터를 JSON 문자열로 변환하여 추가
   formData.append(
     "postCreateDTO",
@@ -73,13 +51,41 @@ export function deletePost(postId) {
   });
 } //글 삭제하기
 
+export function showPost(postId) {
+  return request({
+    url: API_BASE_URL + "/api/post/view/" + postId,
+    method: "GET",
+  });
+} //단일 페이지 보기
+
+export function showListFollow() {
+  return request({
+    url: API_BASE_URL + "/api/post/list",
+    method: "GET",
+  });
+} //전체 글 목록 가져오기 - follow
+
+export function showListRecommend(page = 0, size = 10) {
+  return request({
+    url: `${API_BASE_URL}/api/post/recommend?page=${page}&size=${size}`,
+    method: "GET",
+  });
+} //전체 글 목록 가져오기 - recommend
+
 export function createLike(likeRequest, postId) {
   return request({
     url: API_BASE_URL + "/api/post/like" + postId,
     method: "POST",
     body: JSON.stringify(likeRequest),
   });
-} //글 수정하기
+} //좋아요 누르기
+
+export function showLikeList(postId) {
+  return request({
+    url: API_BASE_URL + "/api/post/like/list" + postId,
+    method: "GET",
+  });
+} //단일 게시물에 대한 좋아요 리스트
 
 class PostService {}
 export default new PostService();

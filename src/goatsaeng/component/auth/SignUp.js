@@ -215,6 +215,7 @@ const SignUp = () => {
       birthDate: formattedBirth, // signUpForm의 birthDate도 업데이트
     });
   };
+
   return (
     <div className={styles.page}>
       <div className={styles.container}>

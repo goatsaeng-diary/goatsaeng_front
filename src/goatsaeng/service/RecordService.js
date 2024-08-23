@@ -63,11 +63,12 @@ export function showRecordMonth(page = 0, size = 5) {
   });
 } //기본 기록 당월 조회\
 
-export function showRecordAverage(page = 0, size = 5) {
+export function showRecordAverage(recordTypeId, page = 0, size = 5) {
   return request({
     url:
       API_BASE_URL +
-      "/api/record/default/prev-average-month" +
+      "/api/record/default/prev-average-month/" +
+      recordTypeId +
       `?page=${page}&size=${size}`,
     method: "GET",
   });

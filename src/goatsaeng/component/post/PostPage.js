@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { deletePost, showPost, showImage } from "../../service/PostService";
+import { deletePost, showPost } from "../../service/PostService";
+import { showImage } from "../../service/ImageService";
 
 import styles from "./Post.module.css";
 import { FaArrowLeft } from "react-icons/fa";
@@ -11,22 +12,39 @@ import CommentList from "./Comment/CommentList";
 const PostPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [post, setPost] = useState("");
+  const [post, setPost] = useState(null);
   const [liked, setLiked] = useState(false);
+  const [imageUrl, setImageUrl] = useState("");
 
   useEffect(() => {
     fetchPost();
   }, [id]);
 
+  useEffect(() => {
+    if (post && post.files) {
+      fetchImage(post.files);
+    }
+  }, [post]);
+
   const fetchPost = () => {
     showPost(id)
       .then((response) => {
-        console.log(response);
         setPost(response.data);
       })
       .catch((e) => {
         console.log(e);
         window.alert(e.error);
+      });
+  };
+
+  const fetchImage = (filename) => {
+    showImage(filename)
+      .then((response) => {
+        setImageUrl(`${response.config.url}`);
+      })
+      .catch((e) => {
+        console.log(e);
+        window.alert(e);
       });
   };
 
@@ -58,6 +76,8 @@ const PostPage = () => {
       });
   };
 
+  if (!post) return <div>Loading...</div>;
+
   return (
     <div className={styles.container}>
       <div className={styles.page}>
@@ -73,16 +93,12 @@ const PostPage = () => {
             className={styles.pageNickname}
             onClick={() => onClickProfile(post.nickname)}
           >
-            닉네임
+            {post.nickname}
           </p>
           <p className={styles.pageCreatedDate}>{post.createdDate}</p>
         </div>
         <hr />
-        <img
-          src={"http://localhost:8080/display?filename=" + post.files}
-          alt='본문 이미지'
-          className={styles.contentImage}
-        />
+        <img src={imageUrl} alt='본문 이미지' className={styles.contentImage} />
         <p className={styles.pageContent}>{post.content} </p>
         <div className={styles.pageDetail}>
           <div className={styles.likeButton} onClick={onClickLike}>
@@ -106,4 +122,5 @@ const PostPage = () => {
     </div>
   );
 };
+
 export default PostPage;

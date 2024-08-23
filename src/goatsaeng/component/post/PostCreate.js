@@ -25,6 +25,15 @@ const PostCreate = () => {
 
   const handlePostFormSubmit = (e) => {
     e.preventDefault();
+    // FormData 객체 생성
+    const formData = new FormData();
+    formData.append("title", postForm.title);
+    formData.append("content", postForm.content);
+
+    // 선택한 파일들을 FormData에 추가
+    files.forEach((file, index) => {
+      formData.append("files", file); // 서버가 이 키("files")를 통해 파일 배열을 받도록 설계
+    });
 
     // createPost 함수에 postForm과 files를 직접 전달
     createPost(postForm, files)
