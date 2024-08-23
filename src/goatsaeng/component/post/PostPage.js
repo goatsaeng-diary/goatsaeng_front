@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { deletePost, showPost } from "../../service/PostService";
+import { deletePost, showPost, createLike } from "../../service/PostService";
 import { showImage } from "../../service/ImageService";
 
 import styles from "./Post.module.css";
@@ -13,8 +13,8 @@ const PostPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [post, setPost] = useState(null);
-  const [liked, setLiked] = useState(false);
-  const [imageUrl, setImageUrl] = useState("");
+  const [isliked, setIsLiked] = useState(false);
+  const [imageUrl, setImageUrl] = useState([]);
 
   useEffect(() => {
     fetchPost();
@@ -22,14 +22,23 @@ const PostPage = () => {
 
   useEffect(() => {
     if (post && post.files) {
-      fetchImage(post.files);
+      fetchImages(post.files);
     }
   }, [post]);
+
+  useEffect(() => {
+    return () => {
+      if (imageUrl) {
+        URL.revokeObjectURL(imageUrl);
+      }
+    };
+  }, [imageUrl]);
 
   const fetchPost = () => {
     showPost(id)
       .then((response) => {
         setPost(response.data);
+        console.log(response);
       })
       .catch((e) => {
         console.log(e);
@@ -37,15 +46,23 @@ const PostPage = () => {
       });
   };
 
-  const fetchImage = (filename) => {
-    showImage(filename)
-      .then((response) => {
-        setImageUrl(`${response.config.url}`);
-      })
-      .catch((e) => {
-        console.log(e);
-        window.alert(e);
-      });
+  const fetchImages = (filenames) => {
+    const imagePromises = filenames.map((filename) =>
+      showImage(filename)
+        .then((response) => {
+          const imageUrl = URL.createObjectURL(new Blob([response.data]));
+          return imageUrl;
+        })
+        .catch((e) => {
+          console.log(e);
+          window.alert(`이미지 ${filename}를 불러오는 데 실패했습니다.`);
+          return null;
+        })
+    );
+
+    Promise.all(imagePromises).then((urls) => {
+      setImageUrl(urls.filter((url) => url !== null));
+    });
   };
 
   const onClickGoBack = () => {
@@ -57,7 +74,15 @@ const PostPage = () => {
   };
 
   const onClickLike = () => {
-    setLiked(!liked);
+    createLike(id, isliked)
+      .then((response) => {
+        window.alert(response.message);
+        navigate("/");
+      })
+      .catch((e) => {
+        console.log(e);
+        window.alert(e.exception.errorMessage);
+      });
   };
 
   const onClickUpdate = () => {
@@ -98,14 +123,23 @@ const PostPage = () => {
           <p className={styles.pageCreatedDate}>{post.createdDate}</p>
         </div>
         <hr />
-        <img src={imageUrl} alt='본문 이미지' className={styles.contentImage} />
+        <div className={styles.imageContainer}>
+          {imageUrl.map((url, index) => (
+            <img
+              key={index}
+              src={url}
+              alt={`Post image ${index + 1}`}
+              className={styles.postImage}
+            />
+          ))}
+        </div>
         <p className={styles.pageContent}>{post.content} </p>
         <div className={styles.pageDetail}>
           <div className={styles.likeButton} onClick={onClickLike}>
             <GoHeartFill
-              className={`${styles.heart} ${liked ? styles.active : ""}`}
+              className={`${styles.heart} ${isliked ? styles.active : ""}`}
             />
-            <p>{post.likeCount + (liked ? 1 : 0)}</p>
+            <p>{post.likeCount + (isliked ? 1 : 0)}</p>
           </div>
           <p>
             <strong>댓글</strong> {post.commentCount}

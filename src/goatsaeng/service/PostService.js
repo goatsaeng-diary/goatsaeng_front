@@ -58,12 +58,19 @@ export function showPost(postId) {
   });
 } //단일 페이지 보기
 
-export function showListFollow() {
+export function showList(page = 0, size = 10) {
   return request({
     url: API_BASE_URL + "/api/post/list",
     method: "GET",
   });
-} //전체 글 목록 가져오기 - follow
+} //전체 글 목록 가져오기
+
+// export function showListFollow() {
+//   return request({
+//     url: API_BASE_URL + "/api/post/list",
+//     method: "GET",
+//   });
+// } //전체 글 목록 가져오기 - follow
 
 export function showListRecommend(page = 0, size = 10) {
   return request({
@@ -72,7 +79,7 @@ export function showListRecommend(page = 0, size = 10) {
   });
 } //전체 글 목록 가져오기 - recommend
 
-export function createLike(likeRequest, postId) {
+export function createLike(postId, likeRequest) {
   return request({
     url: API_BASE_URL + "/api/post/like" + postId,
     method: "POST",

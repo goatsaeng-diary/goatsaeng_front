@@ -236,4 +236,7 @@
   cursor: pointer;
 }
 .contentImage {
-  width: 8
+  width: 803px;
+  height: 500px;
+  object-fit: cover;
+}
