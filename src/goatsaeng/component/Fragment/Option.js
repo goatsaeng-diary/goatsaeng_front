@@ -22,8 +22,6 @@ const Option = () => {
       </div>
       {isOpen && (
         <div className={styles.menu}>
-          <button className={styles.menuItem}>친구 찾기</button>
-          <button className={styles.menuItem}>채팅</button>
           <button className={styles.menuItem} onClick={onClickCreate}>
             글쓰기
           </button>

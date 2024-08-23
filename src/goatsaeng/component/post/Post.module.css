@@ -186,6 +186,17 @@
   font-size: 15px;
   color: #8d8d8d;
 }
+.imageContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.contentImage {
+  width: 600px;
+  margin: auto;
+}
+
 .page > hr {
   width: 808px;
   margin: 10px 0 10px;
@@ -234,9 +245,4 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
-}
-.contentImage {
-  width: 803px;
-  height: 500px;
-  object-fit: cover;
 }

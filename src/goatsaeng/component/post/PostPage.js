@@ -129,7 +129,7 @@ const PostPage = () => {
               key={index}
               src={url}
               alt={`Post image ${index + 1}`}
-              className={styles.postImage}
+              className={styles.contentImage}
             />
           ))}
         </div>
