@@ -31,7 +31,7 @@ const Header = () => {
       <img
         className={styles.logo}
         src={logo}
-        alt='갓생일기'
+        alt="갓생일기"
         onClick={() => navigate("/")}
       />
       <div className={styles.container}>

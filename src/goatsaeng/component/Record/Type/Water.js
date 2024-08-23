@@ -194,11 +194,11 @@ const Water = ({ id }) => {
           <div>
             <h2>나의 목표치는?</h2>
             <input
-              type='number'
+              type="number"
               value={goal}
               onChange={handleGoalChange}
               className={styles.goalInput}
-              placeholder='mL'
+              placeholder="mL"
               disabled={!isEditing}
             />
             <HiOutlinePencilSquare
@@ -207,7 +207,7 @@ const Water = ({ id }) => {
             />
           </div>
           {isEditing && (
-            <button type='submit' className={styles.submitButton}>
+            <button type="submit" className={styles.submitButton}>
               {targetId ? "목표 수정하기" : "목표 저장하기"}
             </button>
           )}

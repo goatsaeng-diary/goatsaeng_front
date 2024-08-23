@@ -109,11 +109,15 @@ const PostList = () => {
             onClick={() => onClickPost(post.postId)}
           >
             <img
-              src={"http://localhost:8080/display?filename=" + post.files}
-              alt='본문 이미지'
+              src={
+                post.files && post.files.length > 0
+                  ? "http://localhost:8080/display?filename=" + post.files[0]
+                  : "/static/media/userImage.1bae7b747a25c0c2722f.png"
+              }
+              alt="본문 이미지"
             />
             <div className={styles.postListBoxHeader}>
-              <img src='https://via.placeholder.com/36' alt='프로필 이미지' />
+              <img src="https://via.placeholder.com/36" alt="프로필 이미지" />
               <p className={styles.headerNickname}>{post.nickname}</p>
               <p className={styles.headerDetail}>좋아요 {post.likeCount}</p>
               <p className={styles.headerDetail}>댓글 {post.commentCount}</p>
