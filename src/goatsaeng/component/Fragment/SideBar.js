@@ -33,9 +33,6 @@ const SideBar = () => {
       <img src={userImage} alt='프로필 이미지' />
       <h4>{userProfile.nickname}</h4>
       <p className={styles.profilePoint}>포인트 : {userProfile.totalPoint}P</p>
-      <p className={styles.profileBadget}>
-        획득한 뱃지 수 : {userProfile.badget}0개
-      </p>
     </div>
   );
 };

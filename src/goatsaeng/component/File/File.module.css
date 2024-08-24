@@ -1,0 +1,138 @@
+.FileContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.FileContainer h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.FileContainer input[type="file"] {
+  display: block;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  flex: 1;
+}
+
+.FileContainer button {
+  background-color: #227c9d;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.FileContainer button:hover {
+  background-color: #1b6077;
+}
+
+.FileContainer ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.FileContainer li {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.FileContainer li:hover {
+  background-color: #f0f0f0;
+}
+
+.container {
+  margin-top: 40px;
+}
+
+.searchContainer {
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border: 1px solid #d5d5d5;
+  border-radius: 8px;
+  overflow-y: auto;
+}
+
+.userMessage,
+.aiMessage {
+  max-width: 70%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 18px;
+  clear: both;
+  word-wrap: break-word;
+}
+
+.userMessage {
+  background-color: #227c9d;
+  color: white;
+  align-self: flex-end;
+  margin-left: auto;
+}
+
+.aiMessage {
+  background-color: #f1f0f0;
+  color: black;
+  align-self: flex-start;
+  margin-right: auto;
+}
+
+.inputContainer {
+  display: flex;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.input {
+  flex-grow: 1;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+}
+
+.input:focus {
+  border-color: #227c9d;
+  box-shadow: 0 0 0 2px rgba(34, 124, 157, 0.2);
+}
+
+.button {
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #227c9d;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #1b6077;
+}
