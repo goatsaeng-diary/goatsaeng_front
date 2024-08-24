@@ -20,6 +20,8 @@ import RecordPage from "./goatsaeng/component/Record/RecordPage";
 import RecordCreate from "./goatsaeng/component/Record/RecordCreate";
 import OAuth2RedirectHandler from "./goatsaeng/component/Auth/OAuth2RedirectHandler";
 import FileContainer from "./goatsaeng/component/File/FileContainer";
+import Study from "./goatsaeng/component/Study/Study";
+import Goal from "./goatsaeng/component/Goal/Goal";
 
 function App() {
   return (
@@ -96,10 +98,10 @@ function App() {
               }
             />
             <Route
-              path='/record/new'
+              path='/study'
               element={
                 <SubLayout>
-                  <ProtectedRoute element={<RecordCreate />} />
+                  <ProtectedRoute element={<Study />} />
                 </SubLayout>
               }
             />
@@ -108,6 +110,14 @@ function App() {
               element={
                 <SubLayout>
                   <ProtectedRoute element={<FileContainer />} />
+                </SubLayout>
+              }
+            />
+            <Route
+              path='/goal'
+              element={
+                <SubLayout>
+                  <ProtectedRoute element={<Goal />} />
                 </SubLayout>
               }
             />

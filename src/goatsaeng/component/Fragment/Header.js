@@ -36,6 +36,7 @@ const Header = () => {
       />
       <div className={styles.container}>
         <div className={styles.box}>
+          <button onClick={() => navigate("/goal")}>목표 정하기</button>
           <button onClick={() => navigate("/record")}>기록하기</button>
           <button onClick={() => navigate("/study")}>학습하기</button>
           <button onClick={() => navigate("/files")}>자료실</button>

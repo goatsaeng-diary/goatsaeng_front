@@ -1,0 +1,99 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 10px;
+}
+
+.goalButton {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  transition: background-color 0.3s;
+}
+
+.goalButton.active {
+  background-color: #17c3b2;
+  color: white;
+}
+
+.inputContainer {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.input {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.searchButton {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #227c9d;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.searchButton:hover {
+  background-color: #227c9d;
+}
+.resultContainer,
+.detailsContainer,
+.saveContainer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.detailButton,
+.saveButton {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #227c9d;
+  color: white;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+  margin-left: auto;
+}
+
+.detailButton:hover,
+.saveButton:hover {
+  background-color: #227c9d;
+}
+
+.saveContainer {
+  display: flex;
+  gap: 10px;
+}
+
+.saveContainer .input {
+  flex-grow: 1;
+}
