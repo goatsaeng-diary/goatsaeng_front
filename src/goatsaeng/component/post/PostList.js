@@ -109,7 +109,11 @@ const PostList = () => {
             onClick={() => onClickPost(post.postId)}
           >
             <img
-              src={"http://localhost:8080/display?filename=" + post.files}
+              src={
+                post.files && post.files.length > 0
+                  ? "http://localhost:8080/display?filename=" + post.files[0]
+                  : "/static/media/userImage.1bae7b747a25c0c2722f.png"
+              }
               alt='본문 이미지'
             />
             <div className={styles.postListBoxHeader}>
